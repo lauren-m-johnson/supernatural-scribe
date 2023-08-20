@@ -5,6 +5,7 @@ import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import Encounters from '../Encounters/Encounters';
+import Header from '../../components/Header/Header';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -12,14 +13,15 @@ export default function App() {
 
   return (
     <>
+      <Header />
       <aside>
-        <NavBar user={user} setUser={setUser} setShowAuthPage={setShowAuthPage} /> {/* Add setShowAuthPage prop */}
+        <NavBar user={user} setUser={setUser} setShowAuthPage={setShowAuthPage} />
+        {user ? null : showAuthPage && <AuthPage setUser={setUser} />} 
         {user ? <EncounterForm /> : null}
       </aside>
       <main className="App">
         <Encounters />
       </main>
-      {user ? null : showAuthPage && <AuthPage setUser={setUser} />}
     </>
   );
 }

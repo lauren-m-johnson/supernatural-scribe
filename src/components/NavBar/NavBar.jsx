@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
 
-export default function NavBar({ user, setUser, setShowAuthPage }) { // Update the prop here
+export default function NavBar({ user, setUser, setShowAuthPage }) { 
   function handleLogOut() {
     userService.logOut();
     setUser(null);
   }
 
-  function handleLogInClick() { // Add this function
+  function handleLogInClick() { 
     setShowAuthPage(true);
   }
 
@@ -22,7 +22,7 @@ export default function NavBar({ user, setUser, setShowAuthPage }) { // Update t
       ) : (
         <>
           <span>Welcome, Guest</span>
-          &nbsp;&nbsp;<Link to="" onClick={handleLogInClick}>Log In</Link> {/* Update this line */}
+          &nbsp;&nbsp;<Link to="" onClick={handleLogInClick}>Log In</Link> 
         </>
       )}
     </nav>
