@@ -45,15 +45,14 @@ export default function Encounters({ user }) {
         </div>
       )}
 
-      {/* Render the list of encounters */}
       <div className="encounters-list">
-        {encounters.map(encounter => (
-          <div key={encounter.id}>
-            <p>Title: {encounter.title}</p>
-            <p>Location: {encounter.location}</p>
-            <p>Description: {encounter.description}</p>
-          </div>
-        ))}
+        {encounters.map((encounter, index) => (
+        <div key={index}>
+        <p>Title: {encounter.title}</p>
+        <p>Location: {encounter.location}</p>
+        <p>Description: {encounter.description}</p>
+      </div>
+    ))}
       </div>
     </div>
   );
