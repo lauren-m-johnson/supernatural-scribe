@@ -12,7 +12,6 @@ export default function Encounters({ user }) {
   };
 
   useEffect(() => {
-    // Fetch encounters data using both approaches
     encountersService.fetchEncounters()
       .then(encountersData => {
         setEncounters(encountersData);
@@ -21,10 +20,8 @@ export default function Encounters({ user }) {
         console.error('Error fetching encounters using encounters-service.js:', error);
       });
 
-    encountersApi.fetchEncountersApi() // If you created encounters-api.js
+    encountersApi.fetchEncountersApi()
       .then(encountersData => {
-        // Update encounters state using encounters-api.js data
-        // setEncounters(encountersData);
       })
       .catch(error => {
         console.error('Error fetching encounters using encounters-api.js:', error);
@@ -45,15 +42,15 @@ export default function Encounters({ user }) {
         </div>
       )}
 
-      <div className="encounters-list">
-        {encounters.map((encounter, index) => (
-        <div key={index}>
-        <p>Title: {encounter.title}</p>
-        <p>Location: {encounter.location}</p>
-        <p>Description: {encounter.description}</p>
-      </div>
-    ))}
-      </div>
+        <div className="encounters-list">
+        {encounters.map(encounter => (
+            <div key={encounter._id}> 
+            <p>Title: {encounter.title}</p>
+            <p>Location: {encounter.location}</p>
+            <p>Description: {encounter.description}</p>
+            </div>
+        ))}
+        </div>
     </div>
   );
 }
