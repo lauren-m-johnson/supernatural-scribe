@@ -3,8 +3,7 @@ import { getUser } from '../../utilities/users-service';
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
-import EncounterForm from '../../components/EncounterForm/EncounterForm';
-import Encounters from '../Encounters/Encounters';
+import Encounters from '../Encounters/Encounters'; // Import Encounters without EncounterForm
 import Header from '../../components/Header/Header';
 
 export default function App() {
@@ -17,10 +16,10 @@ export default function App() {
       <aside>
         <NavBar user={user} setUser={setUser} setShowAuthPage={setShowAuthPage} />
         {user ? null : showAuthPage && <AuthPage setUser={setUser} />} 
-        {user ? <EncounterForm /> : null}
       </aside>
       <main className="App">
-        <Encounters />
+        {/* Pass the user to Encounters component */}
+        <Encounters user={user}/>
       </main>
     </>
   );
