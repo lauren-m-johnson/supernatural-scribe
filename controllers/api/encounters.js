@@ -1,4 +1,4 @@
-const Encounter = require('../../models/encounter'); // Adjust the path based on your project structure
+const Encounter = require('../../models/encounter'); 
 
 module.exports = {
   create: async function(req, res, next) {

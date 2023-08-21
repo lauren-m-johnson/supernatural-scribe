@@ -21,7 +21,7 @@ export default function NavBar({ user, setUser, setShowAuthPage }) {
         </>
       ) : (
         <>
-          <span>Welcome, Guest</span>
+          <span>Welcome, Stranger</span>
           &nbsp;&nbsp;<Link to="" onClick={handleLogInClick}>Log In</Link> 
         </>
       )}
