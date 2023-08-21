@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import * as encountersService from '../../utilities/encounters-service';
 
 export default function EncounterForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     title: '',
     location: '',
     description: '',
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   function handleChange(evt) {
     const newFormData = { ...formData, [evt.target.name]: evt.target.value };
@@ -19,6 +21,7 @@ export default function EncounterForm({ onSubmit }) {
     encountersService.createEncounter(formData)
       .then(savedData => {
         onSubmit(savedData);
+        setFormData(initialFormData); // Reset the form data
       })
       .catch(error => {
         console.error('Error saving encounter:', error);
