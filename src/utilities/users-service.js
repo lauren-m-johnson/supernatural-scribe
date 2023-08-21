@@ -1,5 +1,9 @@
 import * as usersAPI from './users-api';
 
+export async function fetchUserData(userId) {
+  return usersAPI.fetchUserData(userId); 
+}
+
 export async function signUp(userData) {
   const token = await usersAPI.signUp(userData);
   localStorage.setItem('token', token);

@@ -18,7 +18,6 @@ export default function App() {
         {user ? null : showAuthPage && <AuthPage setUser={setUser} />} 
       </aside>
       <main className="App">
-        {/* Pass the user to Encounters component */}
         <Encounters user={user}/>
       </main>
     </>
