@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import * as encountersService from '../../utilities/encounters-service';
+import './Encounter.css';
 
 export default function Encounters({ user }) {
   const [submittedEncounter, setSubmittedEncounter] = useState(null);
@@ -41,9 +42,10 @@ export default function Encounters({ user }) {
 
       {/* Render the list of encounters */}
       <div className="encounters-list">
+        <h1>Encounters</h1>
         {encounters.slice().reverse().map(encounter => (
-          <div key={encounter._id}>
-            <p>User: {encounter.createdBy ? encounter.createdBy.name : "Unknown User"}</p>
+          <div key={encounter._id} className='post'>
+            <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
             <p>Title: {encounter.title}</p>
             <p>Location: {encounter.location}</p>
             <p>Description: {encounter.description}</p>

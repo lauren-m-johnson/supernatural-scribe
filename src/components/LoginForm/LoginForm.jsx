@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
+import './LoginForm.css';
 
 export default function LoginForm({ setUser }) {
   const [credentials, setCredentials] = useState({
@@ -26,7 +27,7 @@ export default function LoginForm({ setUser }) {
       setError('Log In Failed - Try Again');
     }
   }
-
+  // Render form for logging in
   return (
     <div>
       <div className="form-container">

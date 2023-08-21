@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as encountersService from '../../utilities/encounters-service';
+import './EncounterForm.css';
 
 export default function EncounterForm({ onSubmit, user }) {
   const initialFormData = {
@@ -33,6 +34,7 @@ export default function EncounterForm({ onSubmit, user }) {
       });
   }
 
+  // Render the form
   return (
     <div className="encounter-form-container">
       <form onSubmit={handleSubmit} className="encounter-form">

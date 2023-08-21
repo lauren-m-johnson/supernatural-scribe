@@ -1,5 +1,4 @@
 const Encounter = require('../../models/encounter'); 
-const mongoose = require('mongoose');
 
 // Helper function to handle errors
 function handleErrors(res, err) {
