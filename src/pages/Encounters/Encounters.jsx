@@ -21,6 +21,10 @@ export default function Encounters({ user }) {
       });
   }, []);
 
+  const handleEdit = (encounter) => {
+
+  };
+
   return (
     <div>
       {user && (
@@ -49,6 +53,9 @@ export default function Encounters({ user }) {
             <p>Title: {encounter.title}</p>
             <p>Location: {encounter.location}</p>
             <p>Description: {encounter.description}</p>
+            {user && encounter.createdBy._id === user._id && (
+              <button onClick={() => handleEdit(encounter)}>Edit</button>
+            )}
           </div>
         ))}
       </div>
