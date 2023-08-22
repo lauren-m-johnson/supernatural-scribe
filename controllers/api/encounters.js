@@ -32,7 +32,11 @@ async function edit(req, res) {
     const updatedData = req.body;
     const userId = req.user._id;
 
-    const encounter = await Encounter.findById(encounterId);
+    const encounter = await Encounter.findByIdAndUpdate(
+      encounterId,
+      updatedData,
+      { new: true } 
+    ).populate('createdBy'); 
 
     if (!encounter) {
       return res.status(404).json({ error: 'Encounter not found' });
@@ -42,14 +46,12 @@ async function edit(req, res) {
       return res.status(403).json({ error: 'Unauthorized to edit this encounter' });
     }
 
-    Object.assign(encounter, updatedData);
-    await encounter.save();
-
     res.json(encounter);
   } catch (err) {
     handleErrors(res, err);
   }
 }
+
 
 module.exports = {
   create,

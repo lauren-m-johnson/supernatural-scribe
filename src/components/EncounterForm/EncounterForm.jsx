@@ -16,7 +16,7 @@ export default function EncounterForm({ onSubmit, user }) {
     setFormData(newFormData);
   }
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
 
     const encounterDataWithUser = {
@@ -24,14 +24,13 @@ export default function EncounterForm({ onSubmit, user }) {
       createdBy: user._id,
     };
 
-    encountersService.createEncounter(encounterDataWithUser)
-      .then(savedData => {
-        onSubmit(savedData);
-        setFormData(initialFormData);
-      })
-      .catch(error => {
-        console.error('Error saving encounter:', error);
-      });
+    try {
+      const savedData = await encountersService.createEncounter(encounterDataWithUser);
+      onSubmit(savedData);
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error('Error saving encounter:', error);
+    }
   }
 
   // Render the form

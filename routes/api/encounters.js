@@ -5,6 +5,6 @@ const isLoggedIn = require('../../config/ensureLoggedIn');
 
 router.post('/', encountersCtrl.create);
 router.get('/', encountersCtrl.list);
-router.put('/encounters/:id', isLoggedIn, encountersCtrl.edit);
+router.put('/:id', isLoggedIn, encountersCtrl.edit);
 
 module.exports = router;

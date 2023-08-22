@@ -10,20 +10,15 @@ export default function EditEncounterForm({ onSubmit, onCancel, initialFormData 
     setFormData(newFormData);
   }
 
-  function handleEditSubmit(evt) {
+  async function handleEditSubmit(evt) {
     evt.preventDefault();
 
-    const updatedEncounterData = {
-      ...formData,
-    };
-
-    encountersService.updateEncounter(initialFormData._id, updatedEncounterData)
-      .then(updatedData => {
-        onSubmit(updatedData);
-      })
-      .catch(error => {
-        console.error('Error updating encounter:', error);
-      });
+    try {
+      const updatedData = await encountersService.updateEncounter(initialFormData._id, formData);
+      onSubmit(updatedData);
+    } catch (error) {
+      console.error('Error updating encounter:', error);
+    }
   }
 
   // Render the form

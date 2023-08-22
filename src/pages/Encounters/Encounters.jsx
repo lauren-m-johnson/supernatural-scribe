@@ -9,36 +9,40 @@ export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
 
-  const handleFormSubmit = (savedData) => {
+  const handleFormSubmit = async (savedData) => {
     setSubmittedEncounter(savedData);
   };
 
   useEffect(() => {
-    encountersService.fetchEncounters()
-      .then(encountersData => {
+    async function fetchEncounterData() {
+      try {
+        const encountersData = await encountersService.fetchEncounters();
         setEncounters(encountersData);
-      })
-      .catch(error => {
-        console.error('Error fetching encounters using encounters-service.js:', error);
-      });
+      } catch (error) {
+        console.error('Error fetching encounters:', error);
+      }
+    }
+    fetchEncounterData();
   }, []);
 
   const handleEdit = (encounter) => {
     setEditingEncounter(encounter);
   };
 
-  const handleEditFormSubmit = (editedEncounter) => {
-    encountersService.updateEncounter(editedEncounter._id, editedEncounter) // Pass _id and editedEncounter
-      .then(updatedEncounter => {
-        const updatedEncounters = encounters.map(encounter =>
-          encounter._id === updatedEncounter._id ? updatedEncounter : encounter
-        );
-        setEncounters(updatedEncounters);
-        setEditingEncounter(null);
-      })
-      .catch(error => {
-        console.error('Error updating encounter:', error);
-      });
+  const handleEditFormSubmit = async (editedEncounter) => {
+    try {
+      const updatedEncounter = await encountersService.updateEncounter(
+        editedEncounter._id,
+        editedEncounter
+      );
+      const updatedEncounters = encounters.map((encounter) =>
+        encounter._id === updatedEncounter._id ? updatedEncounter : encounter
+      );
+      setEncounters(updatedEncounters);
+      setEditingEncounter(null);
+    } catch (error) {
+      console.error('Error updating encounter:', error);
+    }
   };
 
   return (
@@ -78,8 +82,6 @@ export default function Encounters({ user }) {
           </div>
         ))}
       </div>
-  
-
     </div>
   );
 }
