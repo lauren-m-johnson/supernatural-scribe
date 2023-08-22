@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import * as encountersService from '../../utilities/encounters-service';
 import './EditEncounterForm.css';
 
-export default function EditEncounterForm({ onSubmit, user, initialEncounterData }) {
-  const [formData, setFormData] = useState(initialEncounterData);
+export default function EditEncounterForm({ onSubmit, onCancel, initialFormData }) {
+  const [formData, setFormData] = useState(initialFormData);
 
   function handleChange(evt) {
     const newFormData = { ...formData, [evt.target.name]: evt.target.value };
@@ -15,14 +15,11 @@ export default function EditEncounterForm({ onSubmit, user, initialEncounterData
 
     const updatedEncounterData = {
       ...formData,
-      createdBy: user._id,
     };
 
-    // Replace the following line with the appropriate service function to update the encounter
-    encountersService.updateEncounter(updatedEncounterData)
+    encountersService.updateEncounter(initialFormData._id, updatedEncounterData)
       .then(updatedData => {
         onSubmit(updatedData);
-        setFormData(initialEncounterData);
       })
       .catch(error => {
         console.error('Error updating encounter:', error);
@@ -61,6 +58,7 @@ export default function EditEncounterForm({ onSubmit, user, initialEncounterData
           />
         </label>
         <button type="submit">Save Changes</button>
+        <button type="button" onClick={onCancel}>Cancel</button>
       </form>
     </div>
   );

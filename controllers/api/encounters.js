@@ -26,8 +26,34 @@ async function list(req, res) {
   }
 }
 
+async function edit(req, res) {
+  try {
+    const encounterId = req.params.id;
+    const updatedData = req.body;
+    const userId = req.user._id;
+
+    const encounter = await Encounter.findById(encounterId);
+
+    if (!encounter) {
+      return res.status(404).json({ error: 'Encounter not found' });
+    }
+
+    if (encounter.createdBy.toString() !== userId.toString()) {
+      return res.status(403).json({ error: 'Unauthorized to edit this encounter' });
+    }
+
+    Object.assign(encounter, updatedData);
+    await encounter.save();
+
+    res.json(encounter);
+  } catch (err) {
+    handleErrors(res, err);
+  }
+}
+
 module.exports = {
   create,
   list,
+  edit,
 };
 

@@ -9,3 +9,7 @@ export async function createEncounter(encounterData) {
 export async function fetchEncounters() {
   return sendRequest(BASE_URL, 'GET');
 }
+
+export async function updateEncounter(encounterId, encounterData) {
+  return sendRequest(`${BASE_URL}/${encounterId}`, 'PUT', encounterData);
+}
