@@ -11,15 +11,17 @@ export default function App() {
   const [showAuthPage, setShowAuthPage] = useState(false);
 
   return (
-    <>
-      <Header />
+    <div className='container'>
+      <header>
+        <Header />
+      </header>
       <aside>
         <NavBar user={user} setUser={setUser} setShowAuthPage={setShowAuthPage} />
         {user ? null : showAuthPage && <AuthPage setUser={setUser} />} 
       </aside>
-      <main className="App">
+      <main>
         <Encounters user={user}/>
       </main>
-    </>
+    </div>
   );
 }

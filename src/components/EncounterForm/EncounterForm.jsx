@@ -38,6 +38,7 @@ export default function EncounterForm({ onSubmit, user }) {
   return (
     <div className="encounter-form-container">
       <form onSubmit={handleSubmit} className="encounter-form">
+        <h2>Submit an Encounter</h2>
         <label>
           Title:
           <input
