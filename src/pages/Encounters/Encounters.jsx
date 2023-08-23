@@ -1,16 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import './Encounter.css';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import EditEncounterForm from '../../components/EditEncounterForm/EditEncounterForm';
 import * as encountersService from '../../utilities/encounters-service';
-import './Encounter.css';
 
 export default function Encounters({ user }) {
-  const [submittedEncounter, setSubmittedEncounter] = useState(null);
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
 
   const handleFormSubmit = async (savedData) => {
-    setSubmittedEncounter(savedData);
+    const encounterDataWithUser = {
+      ...savedData,
+      createdBy: user,
+    };
+  
+    try {
+      const newEncounter = await encountersService.createEncounter(encounterDataWithUser);
+      setEncounters([newEncounter, ...encounters]); // Update the state directly
+      setEditingEncounter(null);
+    } catch (error) {
+      console.error('Error saving encounter:', error);
+    }
+  };
+
+  const handleEditFormSubmit = async (editedEncounter) => {
+    try {
+      await encountersService.updateEncounter(
+        editedEncounter._id,
+        editedEncounter
+      );
+  
+      // Update the state directly with the edited encounter
+      setEncounters(encounters.map(encounter =>
+        encounter._id === editedEncounter._id ? editedEncounter : encounter
+      ));
+  
+      setEditingEncounter(null);
+    } catch (error) {
+      console.error('Error updating encounter:', error);
+    }
   };
 
   useEffect(() => {
@@ -22,28 +50,9 @@ export default function Encounters({ user }) {
         console.error('Error fetching encounters:', error);
       }
     }
+
     fetchEncounterData();
-  }, []);
-
-  const handleEdit = (encounter) => {
-    setEditingEncounter(encounter);
-  };
-
-  const handleEditFormSubmit = async (editedEncounter) => {
-    try {
-      const updatedEncounter = await encountersService.updateEncounter(
-        editedEncounter._id,
-        editedEncounter
-      );
-      const updatedEncounters = encounters.map((encounter) =>
-        encounter._id === updatedEncounter._id ? updatedEncounter : encounter
-      );
-      setEncounters(updatedEncounters);
-      setEditingEncounter(null);
-    } catch (error) {
-      console.error('Error updating encounter:', error);
-    }
-  };
+  }, [editingEncounter]);
 
   return (
     <div>
@@ -59,15 +68,6 @@ export default function Encounters({ user }) {
         />
       ) : null}
   
-      {submittedEncounter && (
-        <div className="submitted-data">
-          <p>User: {user.name}</p>
-          <p>Title: {submittedEncounter.title}</p>
-          <p>Location: {submittedEncounter.location}</p>
-          <p>Description: {submittedEncounter.description}</p>
-        </div>
-      )}
-  
       <div className="encounters-list">
         <h1>Encounters</h1>
         {encounters.slice().reverse().map(encounter => (
@@ -77,7 +77,8 @@ export default function Encounters({ user }) {
             <p>Location: {encounter.location}</p>
             <p>Description: {encounter.description}</p>
             {encounter.createdBy && user && encounter.createdBy._id === user._id && (
-              <button onClick={() => handleEdit(encounter)}>Edit</button>
+              <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
+              
             )}
           </div>
         ))}
