@@ -8,6 +8,15 @@ export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
 
+  const handleDelete = async (encounter) => {
+    try {
+      await encountersService.deleteEncounter(encounter._id);
+      setEncounters(encounters.filter(e => e._id !== encounter._id));
+    } catch (error) {
+      console.error('Error deleting encounter:', error);
+    }
+  };
+
   const handleFormSubmit = async (savedData) => {
     const encounterDataWithUser = {
       ...savedData,
@@ -27,7 +36,6 @@ export default function Encounters({ user }) {
     try {
       await encountersService.updateEncounter(
         editedEncounter._id,
-        editedEncounter
       );
   
       // Update the state directly with the edited encounter
@@ -77,8 +85,10 @@ export default function Encounters({ user }) {
             <p>Location: {encounter.location}</p>
             <p>Description: {encounter.description}</p>
             {encounter.createdBy && user && encounter.createdBy._id === user._id && (
+            <div>
               <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
-              
+              <button onClick={() => handleDelete(encounter)}>Delete</button>
+            </div>
             )}
           </div>
         ))}
