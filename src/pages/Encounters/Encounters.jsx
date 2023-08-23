@@ -27,19 +27,19 @@ export default function Encounters({ user }) {
     }
   };
 
-  const handleFormSubmit = async (savedData) => {
+  const handleFormSubmit = async (formData) => {
     const encounterDataWithUser = {
-      title: savedData.title,
-      location: savedData.location,
-      description: savedData.description,
+      title: formData.title,
+      location: formData.location,
+      description: formData.description,
       createdBy: user._id,
     };
-  
+
     try {
       await encountersService.createEncounter(encounterDataWithUser);
       fetchEncounterData();
       setEditingEncounter(null);
-      setShowEncounterForm(false); 
+      setShowEncounterForm(false);
     } catch (error) {
       console.error('Error saving encounter:', error);
     }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import * as encountersService from '../../utilities/encounters-service';
 import './EncounterForm.css';
 
 export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) {
@@ -23,15 +22,10 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
       ...formData,
       createdBy: user._id,
     };
-  
-    try {
-      const savedData = await encountersService.createEncounter(encounterDataWithUser);
-      onSubmit(savedData); 
+
+      onSubmit(encounterDataWithUser); 
       setFormData(initialFormData);
-      setShowEncounterForm(false); // Close the form after submission
-    } catch (error) {
-      console.error('Error saving encounter:', error);
-    }
+      setShowEncounterForm(false); 
   }
 
   // Render the form
