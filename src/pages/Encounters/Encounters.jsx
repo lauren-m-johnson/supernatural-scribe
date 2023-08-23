@@ -8,6 +8,15 @@ export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
 
+  const fetchEncounterData = async () => {
+    try {
+      const encountersData = await encountersService.fetchEncounters();
+      setEncounters(encountersData);
+    } catch (error) {
+      console.error('Error fetching encounters:', error);
+    }
+  };
+
   const handleDelete = async (encounter) => {
     try {
       await encountersService.deleteEncounter(encounter._id);
@@ -19,13 +28,15 @@ export default function Encounters({ user }) {
 
   const handleFormSubmit = async (savedData) => {
     const encounterDataWithUser = {
-      ...savedData,
+      title: savedData.title,
+      location: savedData.location,
+      description: savedData.description,
       createdBy: user,
     };
   
     try {
-      const newEncounter = await encountersService.createEncounter(encounterDataWithUser);
-      setEncounters([newEncounter, ...encounters]); // Update the state directly
+      await encountersService.createEncounter(encounterDataWithUser);
+      fetchEncounterData();
       setEditingEncounter(null);
     } catch (error) {
       console.error('Error saving encounter:', error);
@@ -34,14 +45,13 @@ export default function Encounters({ user }) {
 
   const handleEditFormSubmit = async (editedEncounter) => {
     try {
-      await encountersService.updateEncounter(
-        editedEncounter._id,
+      await encountersService.updateEncounter(editedEncounter._id, editedEncounter);
+      
+      setEncounters(prevEncounters => 
+        prevEncounters.map(encounter =>
+          encounter._id === editedEncounter._id ? editedEncounter : encounter
+        )
       );
-  
-      // Update the state directly with the edited encounter
-      setEncounters(encounters.map(encounter =>
-        encounter._id === editedEncounter._id ? editedEncounter : encounter
-      ));
   
       setEditingEncounter(null);
     } catch (error) {
@@ -50,15 +60,6 @@ export default function Encounters({ user }) {
   };
 
   useEffect(() => {
-    async function fetchEncounterData() {
-      try {
-        const encountersData = await encountersService.fetchEncounters();
-        setEncounters(encountersData);
-      } catch (error) {
-        console.error('Error fetching encounters:', error);
-      }
-    }
-
     fetchEncounterData();
   }, [editingEncounter]);
 
@@ -96,7 +97,6 @@ export default function Encounters({ user }) {
     </div>
   );
 }
-
 
 
 
