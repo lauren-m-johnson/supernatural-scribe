@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as encountersService from '../../utilities/encounters-service';
 import './EncounterForm.css';
 
-export default function EncounterForm({ onSubmit, user }) {
+export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) {
   const initialFormData = {
     title: '',
     location: '',
@@ -28,6 +28,7 @@ export default function EncounterForm({ onSubmit, user }) {
       const savedData = await encountersService.createEncounter(encounterDataWithUser);
       onSubmit(savedData); 
       setFormData(initialFormData);
+      setShowEncounterForm(false); // Close the form after submission
     } catch (error) {
       console.error('Error saving encounter:', error);
     }

@@ -7,6 +7,7 @@ import * as encountersService from '../../utilities/encounters-service';
 export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
+  const [showEncounterForm, setShowEncounterForm] = useState(false);
 
   const fetchEncounterData = async () => {
     try {
@@ -31,13 +32,14 @@ export default function Encounters({ user }) {
       title: savedData.title,
       location: savedData.location,
       description: savedData.description,
-      createdBy: user,
+      createdBy: user._id,
     };
   
     try {
       await encountersService.createEncounter(encounterDataWithUser);
       fetchEncounterData();
       setEditingEncounter(null);
+      setShowEncounterForm(false); 
     } catch (error) {
       console.error('Error saving encounter:', error);
     }
@@ -60,13 +62,22 @@ export default function Encounters({ user }) {
   };
 
   useEffect(() => {
+    console.log("Fetching encounter data..."); // Test
     fetchEncounterData();
-  }, [editingEncounter]);
+  }, []);
 
   return (
     <div>
-      {user && !editingEncounter && (
-        <EncounterForm onSubmit={handleFormSubmit} user={user} />
+      {user && !editingEncounter && !showEncounterForm && (
+        <button onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
+      )}
+
+      {showEncounterForm && (
+        <EncounterForm
+          onSubmit={handleFormSubmit}
+          user={user}
+          setShowEncounterForm={setShowEncounterForm}
+        />
       )}
 
       {editingEncounter ? (
