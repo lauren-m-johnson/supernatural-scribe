@@ -34,16 +34,11 @@ async function edit(req, res) {
     const encounterId = req.params.id;
     const updatedData = req.body;
     const userId = req.user._id;
-
-    // Omit the _id field from the request body
     const { _id, ...updatedEncounterData } = updatedData;
-
     const encounter = await Encounter.findById(encounterId);
-
     if (!encounter) {
       return res.status(404).json({ error: 'Encounter not found' });
     }
-
     if (encounter.createdBy.toString() !== userId.toString()) {
       return res.status(403).json({ error: 'Unauthorized to edit this encounter' });
     }
@@ -54,8 +49,8 @@ async function edit(req, res) {
 
     // Re-populate the createdBy field after saving
     const updatedEncounter = await Encounter.findById(encounterId).populate('createdBy');
-
     res.json(updatedEncounter);
+    
   } catch (err) {
     handleErrors(res, err);
   }
