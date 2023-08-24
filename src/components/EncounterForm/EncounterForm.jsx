@@ -52,7 +52,7 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
           />
         </label>
         <label>
-          Description:
+          Describe the events:
           <textarea
             name="description"
             value={formData.description}

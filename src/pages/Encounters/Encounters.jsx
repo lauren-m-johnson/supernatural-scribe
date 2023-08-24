@@ -139,7 +139,7 @@ export default function Encounters({ user }) {
             <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
             <p>Title: {encounter.title}</p>
             <p>Location: {encounter.location}</p>
-            <p>Description: {encounter.description}</p>
+            <p>The Encounter: {encounter.description}</p>
             {encounter.createdBy && user && encounter.createdBy._id === user._id && (
               <div>
                 <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
