@@ -1,15 +1,14 @@
 import './Comments.css';
 
-export default function Comments({ comments }) {
+export default function Comments({ comments, user }) {
   return (
-    <div className="comments-container">
-      <h3>Comments:</h3>
-      <ul className="comment-list">
+    <div className="comments">
+      <h3>Comments</h3>
+      <ul>
         {comments.map(comment => (
-          <li key={comment._id} className="comment-item">
+          <li key={comment._id}>
+            <p>{comment.createdBy ? comment.createdBy.name : 'Unknown User'} said:</p>
             <p>{comment.text}</p>
-            <p>By: {comment.createdBy.name}</p>
-            {/* Add delete button for comment here */}
           </li>
         ))}
       </ul>

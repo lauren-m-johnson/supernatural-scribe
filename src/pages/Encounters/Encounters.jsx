@@ -77,11 +77,11 @@ export default function Encounters({ user }) {
     try {
       const newComment = await commentsApi.createComment({
         text,
-        createdBy: user._id,
+        createdBy: user._id,  // Use user._id here
         encounter: encounter._id,
       });
       // Update encounters with new comment
-      setEncounters(prevEncounters => 
+      setEncounters(prevEncounters =>
         prevEncounters.map(e =>
           e._id === encounter._id ? { ...e, comments: [...e.comments, newComment] } : e
         )
@@ -130,9 +130,9 @@ export default function Encounters({ user }) {
                 <button onClick={() => handleDelete(encounter)}>Delete</button>
               </div>
             )}
-            <Comments comments={encounter.comments} />
+            <Comments comments={encounter.comments} user={user} />
             {user && (
-              <CommentForm onSubmit={text => handleCommentSubmit(encounter, text)} />
+              <CommentForm user={user} onSubmit={text => handleCommentSubmit(encounter, text)} />
             )}
           </div>
         ))}

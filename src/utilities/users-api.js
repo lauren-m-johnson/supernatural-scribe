@@ -16,3 +16,4 @@ export async function checkToken() {
 export async function fetchUserData(userId) {
   return sendRequest(`${BASE_URL}/${userId}`, 'GET');
 }
+

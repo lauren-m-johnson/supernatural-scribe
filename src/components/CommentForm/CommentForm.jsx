@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import './CommentForm.css';
 
-export default function CommentForm({ onSubmit }) {
+export default function CommentForm({ user, onSubmit }) {
   const [comment, setComment] = useState('');
 
   const handleSubmit = async evt => {
     evt.preventDefault();
     if (comment.trim() === '') {
-      return; 
+      return;
     }
-    
-    await onSubmit(comment);
+
+    await onSubmit(comment, user._id); 
     setComment('');
   };
 
