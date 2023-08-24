@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Encounter.css';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import EditEncounterForm from '../../components/EditEncounterForm/EditEncounterForm';
-import Comments from '../../pages/Comments/Comments';
+import Comments from '../../pages/Comments/Comments'; // Import your Comments component
 import CommentForm from '../../components/CommentForm/CommentForm';
 import * as encountersService from '../../utilities/encounters-service';
 import * as commentsApi from '../../utilities/comments-api'; // Import the comments API
@@ -15,7 +15,16 @@ export default function Encounters({ user }) {
   const fetchEncounterData = async () => {
     try {
       const encountersData = await encountersService.fetchEncounters();
-      setEncounters(encountersData);
+  
+      // Fetch comments for each encounter
+      const encountersWithComments = await Promise.all(
+        encountersData.map(async (encounter) => {
+          const comments = await commentsApi.fetchCommentsForEncounter(encounter._id); // Fix the variable name here
+          return { ...encounter, comments };
+        })
+      );
+  
+      setEncounters(encountersWithComments);
     } catch (error) {
       console.error('Error fetching encounters:', error);
     }
