@@ -62,16 +62,11 @@ export default function Encounters({ user }) {
   };
 
   useEffect(() => {
-    console.log("Fetching encounter data..."); // Test
     fetchEncounterData();
   }, []);
 
   return (
     <div>
-      {user && !editingEncounter && !showEncounterForm && (
-        <button onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
-      )}
-
       {showEncounterForm && (
         <EncounterForm
           onSubmit={handleFormSubmit}
@@ -90,6 +85,9 @@ export default function Encounters({ user }) {
   
       <div className="encounters-list">
         <h1>Encounters</h1>
+        {user && !editingEncounter && !showEncounterForm && (
+          <button id="" onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
+        )}
         {encounters.slice().reverse().map(encounter => (
           <div key={encounter._id} className='post'>
             <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>

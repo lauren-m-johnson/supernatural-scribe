@@ -1,8 +1,21 @@
+body {
+    height: 100vh;
+    width: auto;
+    margin: 5vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: black;
+    color: whitesmoke;
+    font-family: 'Special Elite', cursive;
+}
+
 .container {
     display: grid;
     grid-template-areas:
-        'header header'
-        'aside main';
+        'header header header header header header'
+        'aside main main main main main';
 }
 
 header {

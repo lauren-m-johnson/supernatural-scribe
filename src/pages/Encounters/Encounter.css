@@ -1,5 +1,9 @@
 .encounters-list, .post {
-    border: solid black 1px;
+    border: solid whitesmoke 1px;
     padding: 10px;
     margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
 }
