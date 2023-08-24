@@ -6,7 +6,7 @@ body {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background-color: black;
+    background-color: rgb(29, 29, 29);
     color: whitesmoke;
     font-family: 'Special Elite', cursive;
 }

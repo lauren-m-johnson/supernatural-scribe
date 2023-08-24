@@ -9,6 +9,10 @@ const encounterSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  }],
 });
 
 const Encounter = mongoose.model('Encounter', encounterSchema);
