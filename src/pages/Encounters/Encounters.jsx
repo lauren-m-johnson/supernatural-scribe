@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Encounter.css';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import EditEncounterForm from '../../components/EditEncounterForm/EditEncounterForm';
+import Comments from '../../pages/Comments/Comments';
+import CommentForm from '../../components/CommentForm/CommentForm';
 import * as encountersService from '../../utilities/encounters-service';
 
 export default function Encounters({ user }) {
@@ -61,6 +63,24 @@ export default function Encounters({ user }) {
     }
   };
 
+  const handleCommentSubmit = async (encounter, text) => {
+    try {
+      const newComment = await encountersService.createComment({
+        text,
+        createdBy: user._id,
+        encounter: encounter._id,
+      });
+      // Update encounters with new comment
+      setEncounters(prevEncounters => 
+        prevEncounters.map(e =>
+          e._id === encounter._id ? { ...e, comments: [...e.comments, newComment] } : e
+        )
+      );
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  };
+
   useEffect(() => {
     fetchEncounterData();
   }, []);
@@ -95,10 +115,14 @@ export default function Encounters({ user }) {
             <p>Location: {encounter.location}</p>
             <p>Description: {encounter.description}</p>
             {encounter.createdBy && user && encounter.createdBy._id === user._id && (
-            <div>
-              <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
-              <button onClick={() => handleDelete(encounter)}>Delete</button>
-            </div>
+              <div>
+                <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
+                <button onClick={() => handleDelete(encounter)}>Delete</button>
+              </div>
+            )}
+            <Comments comments={encounter.comments} />
+            {user && (
+              <CommentForm onSubmit={text => handleCommentSubmit(encounter, text)} />
             )}
           </div>
         ))}
