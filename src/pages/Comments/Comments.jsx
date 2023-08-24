@@ -10,7 +10,7 @@ export default function Comments({ comments, user, onDeleteComment }) {
             {user && user._id === comment.createdBy._id && (
               <button onClick={() => onDeleteComment(comment._id)}>X</button>
             )}
-            <p>{user && user._id === comment.createdBy._id && user.name ? user.name : 'Stranger'} said: </p>
+            <p>{(user && user._id === comment.createdBy._id) ? comment.createdBy.name : 'Stranger'} said: </p>
             <p>{comment.text}</p>
           </li>
         ))}
@@ -18,3 +18,5 @@ export default function Comments({ comments, user, onDeleteComment }) {
     </div>
   );
 }
+
+
