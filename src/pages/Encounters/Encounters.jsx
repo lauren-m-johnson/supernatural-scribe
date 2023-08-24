@@ -77,11 +77,10 @@ export default function Encounters({ user }) {
     try {
       const newComment = await commentsApi.createComment({
         text,
-        createdBy: user._id,  // Use user._id here
+        createdBy: user._id,
         encounter: encounter._id,
       });
-      // Update encounters with new comment
-      setEncounters(prevEncounters =>
+      setEncounters(prevEncounters => 
         prevEncounters.map(e =>
           e._id === encounter._id ? { ...e, comments: [...e.comments, newComment] } : e
         )
