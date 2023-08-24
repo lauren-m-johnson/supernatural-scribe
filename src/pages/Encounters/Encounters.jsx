@@ -5,6 +5,7 @@ import EditEncounterForm from '../../components/EditEncounterForm/EditEncounterF
 import Comments from '../../pages/Comments/Comments';
 import CommentForm from '../../components/CommentForm/CommentForm';
 import * as encountersService from '../../utilities/encounters-service';
+import * as commentsApi from '../../utilities/comments-api'; // Import the comments API
 
 export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
@@ -65,7 +66,7 @@ export default function Encounters({ user }) {
 
   const handleCommentSubmit = async (encounter, text) => {
     try {
-      const newComment = await encountersService.createComment({
+      const newComment = await commentsApi.createComment({
         text,
         createdBy: user._id,
         encounter: encounter._id,
