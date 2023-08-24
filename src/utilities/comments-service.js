@@ -9,3 +9,7 @@ export async function fetchCommentsForEncounter(encounterId) {
 export async function createComment(commentData) {
   return sendRequest(BASE_URL, 'POST', commentData);
 }
+
+export async function deleteComment(commentId) {
+  return sendRequest(`${BASE_URL}/${commentId}`, 'DELETE');
+}

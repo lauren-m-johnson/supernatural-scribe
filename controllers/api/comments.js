@@ -32,8 +32,34 @@ async function getCommentsForEncounter(req, res) {
   }
 }
 
+async function deleteComment(req, res) {
+  try {
+    const { commentId } = req.params;
+    // Find the comment by ID
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    // Check if the user trying to delete is the author of the comment
+    if (comment.createdBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    // Delete the comment
+    await comment.remove();
+
+    res.json({ message: 'Comment deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
 module.exports = {
   createComment,
   getComment,
   getCommentsForEncounter,
+  deleteComment,
 };

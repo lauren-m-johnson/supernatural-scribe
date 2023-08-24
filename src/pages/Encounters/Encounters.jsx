@@ -91,6 +91,22 @@ export default function Encounters({ user }) {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+      try {
+        await commentsApi.deleteComment(commentId);
+        setEncounters(prevEncounters =>
+          prevEncounters.map(encounter =>
+            // eslint-disable-next-line
+            encounter._id === encounter._id
+              ? { ...encounter, comments: encounter.comments.filter(comment => comment._id !== commentId) }
+              : encounter
+          )
+        );
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   useEffect(() => {
     fetchEncounterData();
   }, []);
@@ -130,7 +146,7 @@ export default function Encounters({ user }) {
                 <button onClick={() => handleDelete(encounter)}>Delete</button>
               </div>
             )}
-            <Comments comments={encounter.comments} user={user} />
+            <Comments comments={encounter.comments} user={user} onDeleteComment={handleDeleteComment} />
             {user && (
               <CommentForm user={user} onSubmit={text => handleCommentSubmit(encounter, text)} />
             )}
