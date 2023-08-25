@@ -2,31 +2,34 @@ import React, { useState, useEffect } from 'react';
 import './Encounter.css';
 import EncounterForm from '../../components/EncounterForm/EncounterForm';
 import EditEncounterForm from '../../components/EditEncounterForm/EditEncounterForm';
-import Comments from '../../pages/Comments/Comments'; // Import your Comments component
+import Comments from '../../pages/Comments/Comments'; 
 import CommentForm from '../../components/CommentForm/CommentForm';
 import * as encountersService from '../../utilities/encounters-service';
-import * as commentsApi from '../../utilities/comments-api'; // Import the comments API
+import * as commentsApi from '../../utilities/comments-api'; 
 
 export default function Encounters({ user }) {
   const [encounters, setEncounters] = useState([]);
   const [editingEncounter, setEditingEncounter] = useState(null);
   const [showEncounterForm, setShowEncounterForm] = useState(false);
+  const [loading, setLoading] = useState(true); 
 
   const fetchEncounterData = async () => {
     try {
       const encountersData = await encountersService.fetchEncounters();
-      console.log('Fetched Encounters Data:', encountersData); // Log the fetched encounters data
+      console.log('Fetched Encounters Data:', encountersData);
       const encountersWithComments = await Promise.all(
         encountersData.map(async (encounter) => {
-          const comments = await commentsApi.fetchCommentsForEncounter(encounter._id); 
+          const comments = await commentsApi.fetchCommentsForEncounter(encounter._id);
           return { ...encounter, comments };
         })
       );
-  
-      console.log('Encounters with Comments:', encountersWithComments); // Log the encounters with comments data
+
       setEncounters(encountersWithComments);
+      setLoading(false); 
+
     } catch (error) {
       console.error('Error fetching encounters:', error);
+      setLoading(false); 
     }
   };
 
@@ -80,7 +83,6 @@ export default function Encounters({ user }) {
         createdBy: user._id,
         encounter: encounter._id,
       });
-      console.log('New Comment:', newComment); //test
       setEncounters(prevEncounters => 
         prevEncounters.map(e =>
           e._id === encounter._id ? { ...e, comments: [...e.comments, newComment] } : e
@@ -113,46 +115,52 @@ export default function Encounters({ user }) {
 
   return (
     <div>
-      {showEncounterForm && (
-        <EncounterForm
-          onSubmit={handleFormSubmit}
-          user={user}
-          setShowEncounterForm={setShowEncounterForm}
-        />
-      )}
-
-      {editingEncounter ? (
-        <EditEncounterForm
-          onSubmit={handleEditFormSubmit}
-          onCancel={() => setEditingEncounter(null)}
-          initialFormData={editingEncounter}
-        />
-      ) : null}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {showEncounterForm && (
+            <EncounterForm
+              onSubmit={handleFormSubmit}
+              user={user}
+              setShowEncounterForm={setShowEncounterForm}
+            />
+          )}
   
-      <div className="encounters-list">
-        <h1>Encounters</h1>
-        {user && !editingEncounter && !showEncounterForm && (
-          <button id="" onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
-        )}
-        {encounters.slice().reverse().map(encounter => (
-          <div key={encounter._id} className='post'>
-            <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
-            <p>Title: {encounter.title}</p>
-            <p>Location: {encounter.location}</p>
-            <p>The Encounter: {encounter.description}</p>
-            {encounter.createdBy && user && encounter.createdBy._id === user._id && (
-              <div>
-                <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
-                <button onClick={() => handleDelete(encounter)}>Delete</button>
+          {editingEncounter ? (
+            <EditEncounterForm
+              onSubmit={handleEditFormSubmit}
+              onCancel={() => setEditingEncounter(null)}
+              initialFormData={editingEncounter}
+            />
+          ) : null}
+      
+          <div className="encounters-list">
+            <h1>Encounters</h1>
+            {user && !editingEncounter && !showEncounterForm && (
+              <button id="" onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
+            )}
+            {encounters.slice().reverse().map(encounter => (
+              <div key={encounter._id} className='post'>
+                <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
+                <p>Title: {encounter.title}</p>
+                <p>Location: {encounter.location}</p>
+                <p>The Encounter: {encounter.description}</p>
+                {encounter.createdBy && user && encounter.createdBy._id === user._id && (
+                  <div>
+                    <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
+                    <button onClick={() => handleDelete(encounter)}>Delete</button>
+                  </div>
+                )}
+                <Comments comments={encounter.comments} user={user} onDeleteComment={handleDeleteComment} />
+                {user && (
+                  <CommentForm user={user} onSubmit={text => handleCommentSubmit(encounter, text)} />
+                )}
               </div>
-            )}
-            <Comments comments={encounter.comments} user={user} onDeleteComment={handleDeleteComment} />
-            {user && (
-              <CommentForm user={user} onSubmit={text => handleCommentSubmit(encounter, text)} />
-            )}
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
