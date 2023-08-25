@@ -3,3 +3,16 @@
     padding: 10px;
     margin: 5px;
 }
+
+.comment-form {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 5px;
+}
+
+.comment-form textarea {
+    min-width: 60vmin;
+    min-height: 5vmin;
+}

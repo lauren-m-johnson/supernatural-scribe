@@ -19,6 +19,7 @@ export default function CommentForm({ user, onSubmit }) {
       <form onSubmit={handleSubmit} className="comment-form">
         <label>
           Add a Comment:
+          <br />
           <textarea
             value={comment}
             onChange={e => setComment(e.target.value)}
