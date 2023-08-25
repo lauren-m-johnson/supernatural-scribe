@@ -1,6 +1,5 @@
 .comments-container {
-    border: solid whitesmoke 1px;
-    padding: 7px;
+    padding: 5px;
     margin: 5px;
 }
 
@@ -11,14 +10,14 @@
     padding: 10px;
 }
 
-.comments-container button {
-    padding: 2px;
-    width: 2.5vmin;
-    height: 2.5vmin;
-}
-
 .comment-flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+#delete-btn {
+    padding: 2px;
+    width: 2.5vmin;
+    height: 2.5vmin;
 }

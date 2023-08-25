@@ -6,7 +6,7 @@ body {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    background-color: rgb(29, 29, 29);
+    background-color: rgb(63, 63, 63);
     color: whitesmoke;
     font-family: 'Inconsolata', monospace;
 }
@@ -18,18 +18,33 @@ body {
         'aside main main main main main';
 }
 
-h1, h2 {
-    font-family: 'Special Elite', cursive;
-}
-
 header {
     grid-area: header;
 }
 
 aside {
-    grid-area: aside; 
+    grid-area: aside;
+    box-shadow: 1px 1px 10px rgb(0, 0, 0); 
 }
 
 main {
-    grid-area: main; 
+    grid-area: main;
+    box-shadow: 1px 1px 10px rgb(0, 0, 0);
+}
+
+h1, h2 {
+    font-family: 'Special Elite', cursive;
+}
+
+button {
+    background-color: rgb(21, 21, 21);
+    padding: 5px;
+    color: whitesmoke;
+    font-family: 'Inconsolata', monospace;
+    box-shadow: 0 4px 6px rgb(0, 0, 0);
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(195, 26, 26);
 }
