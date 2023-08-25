@@ -140,6 +140,7 @@ export default function Encounters({ user }) {
             {user && !editingEncounter && !showEncounterForm && (
               <button id="" onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
             )}
+            <br />
             {encounters.slice().reverse().map(encounter => (
               <div key={encounter._id} className='post'>
                 <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>

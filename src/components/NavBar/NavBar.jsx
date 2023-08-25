@@ -18,11 +18,13 @@ export default function NavBar({ user, setUser, setShowAuthPage }) {
       {user ? (
         <>
           <span>Welcome, {user.name}</span>
+          <br />
           &nbsp;&nbsp;<Link to="" onClick={handleLogOut}>Log Out</Link>
         </>
       ) : (
         <>
           <span>Welcome, Stranger</span>
+          <br />
           &nbsp;&nbsp;<Link to="" onClick={handleLogInClick}>Log In</Link> 
         </>
       )}

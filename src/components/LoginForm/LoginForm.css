@@ -3,3 +3,10 @@
     padding: 10px;
     margin: 5px;
 }
+
+.log-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
