@@ -4,3 +4,7 @@ header {
     margin: 0;
     border: solid whitesmoke 1px;
 }
+
+header h1 {
+    padding: 2vmin;
+}

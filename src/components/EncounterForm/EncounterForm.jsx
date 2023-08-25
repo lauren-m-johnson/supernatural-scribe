@@ -35,6 +35,7 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
         <h2>Submit an Encounter</h2>
         <label>
           Title:
+          <br />
           <input
             type="text"
             name="title"
@@ -44,6 +45,7 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
         </label>
         <label>
           Location:
+          <br />
           <input
             type="text"
             name="location"
@@ -53,6 +55,7 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
         </label>
         <label>
           Describe the events:
+          <br />
           <textarea
             name="description"
             value={formData.description}
