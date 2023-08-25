@@ -8,7 +8,7 @@ body {
     justify-content: flex-start;
     background-color: rgb(29, 29, 29);
     color: whitesmoke;
-    font-family: 'Special Elite', cursive;
+    font-family: 'Inconsolata', monospace;
 }
 
 .container {
@@ -16,6 +16,10 @@ body {
     grid-template-areas:
         'header header header header header header'
         'aside main main main main main';
+}
+
+h1, h2 {
+    font-family: 'Special Elite', cursive;
 }
 
 header {

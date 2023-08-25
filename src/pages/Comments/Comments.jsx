@@ -3,7 +3,7 @@ import './Comments.css';
 export default function Comments({ comments, user, onDeleteComment }) {
   return (
     <div className='comments-container'>
-      <h1>Comments</h1>
+      <h2>Comments</h2>
       <ul>
         {comments.map(comment => {
           return (
