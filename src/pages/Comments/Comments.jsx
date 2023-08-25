@@ -22,7 +22,7 @@ export default function Comments({ comments, user, onDeleteComment }) {
                                 <div className='comment-flex'>
                                     <div>
                                         <p>
-                                            {comment.createdBy ? comment.createdBy.name : 'Stranger'} said:
+                                        <span className='title'>{comment.createdBy ? comment.createdBy.name : 'Stranger'}</span> said: 
                                         </p>
                                         <p>{comment.text}</p>
                                     </div>

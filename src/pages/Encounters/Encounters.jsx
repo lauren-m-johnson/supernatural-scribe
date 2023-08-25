@@ -138,7 +138,7 @@ export default function Encounters({ user }) {
           <div className="encounters-list">
             <h1>Encounters</h1>
             {user && !editingEncounter && !showEncounterForm && (
-              <button id="" onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
+              <button onClick={() => setShowEncounterForm(true)}>Submit an Encounter</button>
             )}
             <br />
             {encounters.slice().reverse().map(encounter => (

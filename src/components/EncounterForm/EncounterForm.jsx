@@ -63,6 +63,7 @@ export default function EncounterForm({ onSubmit, user, setShowEncounterForm }) 
           />
         </label>
         <button type="submit">Submit</button>
+        <button type='button' onClick={() => setShowEncounterForm(false)}>Cancel</button>
       </form>
     </div>
   );
