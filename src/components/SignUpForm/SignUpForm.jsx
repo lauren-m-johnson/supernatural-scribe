@@ -40,7 +40,7 @@ export default function SignUpForm({ setUser }) {
     <div>
       <div className="signup-form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Name</label>
+          <label>Display Name</label>
           <input
             type="text"
             name="name"

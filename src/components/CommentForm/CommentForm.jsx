@@ -22,7 +22,7 @@ export default function CommentForm({ user, onSubmit }) {
     return (
         <div className='comment-form-container'>
             <button onClick={toggleForm}>
-                {showForm ? 'Hide Comment Form' : 'Show Comment Form'}
+                {showForm ? 'HIDE' : 'Leave Comment'}
             </button>
             {showForm && (
                 <form onSubmit={handleSubmit} className='comment-form'>

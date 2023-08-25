@@ -143,14 +143,14 @@ export default function Encounters({ user }) {
             <br />
             {encounters.slice().reverse().map(encounter => (
               <div key={encounter._id} className='post'>
-                <p>Author: {encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
-                <p>Title: {encounter.title}</p>
-                <p>Location: {encounter.location}</p>
-                <p>The Encounter: {encounter.description}</p>
+                <p><span className='title'>Author: </span>{encounter.createdBy ? encounter.createdBy.name : "Stranger"}</p>
+                <p><span className='title'>Title: </span>{encounter.title}</p>
+                <p><span className='title'>Location: </span>{encounter.location}</p>
+                <p><span className='title'>The Encounter: </span><br />{encounter.description}</p>
                 {encounter.createdBy && user && encounter.createdBy._id === user._id && (
                   <div>
-                    <button onClick={() => setEditingEncounter(encounter)}>Edit</button>
-                    <button onClick={() => handleDelete(encounter)}>Delete</button>
+                    <button className="encounter-button" onClick={() => setEditingEncounter(encounter)}>Edit</button>
+                    <button className="encounter-button" onClick={() => handleDelete(encounter)}>Delete</button>
                   </div>
                 )}
                 <Comments comments={encounter.comments} user={user} onDeleteComment={handleDeleteComment} />

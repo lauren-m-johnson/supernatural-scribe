@@ -15,9 +15,3 @@
     align-items: center;
     justify-content: space-between;
 }
-
-#delete-btn {
-    padding: 2px;
-    width: 2.5vmin;
-    height: 2.5vmin;
-}

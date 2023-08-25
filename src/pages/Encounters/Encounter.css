@@ -7,3 +7,7 @@
     justify-content: center;
     align-items: stretch;
 }
+
+.encounter-button {
+    margin: 5px;
+}

@@ -7,31 +7,31 @@
 
 .glitch {
     position: relative;
-    color: whitesmoke;
+    color: rgb(245, 245, 245);
     font-size: 3vmin;
     animation: flicker-anim 6s infinite;
 }
 
 @keyframes flicker-anim {
     0%, 100% {
-        color: whitesmoke;
+        color: rgb(245, 245, 245);
     }
     5%, 10% {
-        color: rgb(65, 64, 64);
+        color: rgb(63, 63, 63);
     }
     7%, 12% {
-        color: whitesmoke;
+        color: rgb(245, 245, 245);
     }
     17%, 27% {
-        color: whitesmoke;
+        color: rgb(245, 245, 245);
     }
     29% {
-        color: red;
+        color: rgb(255, 0, 0);
     }
     30%, 33% {
-        color: black;
+        color: rgb(63, 63, 63);
     }
     35%, 37% {
-        color: whitesmoke;
+        color: rgb(245, 245, 245);
     }
 }
