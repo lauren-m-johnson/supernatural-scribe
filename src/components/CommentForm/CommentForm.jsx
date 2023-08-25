@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './CommentForm.css';
 
 export default function CommentForm({ user, onSubmit }) {
+  console.log('CommentForm User:', user);
   const [comment, setComment] = useState('');
 
   const handleSubmit = async evt => {
@@ -10,7 +11,7 @@ export default function CommentForm({ user, onSubmit }) {
       return;
     }
 
-    await onSubmit(comment, user._id); 
+    await onSubmit(comment, user); 
     setComment('');
   };
 

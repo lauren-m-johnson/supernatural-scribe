@@ -1,6 +1,7 @@
 import './Comments.css';
 
 export default function Comments({ comments, user, onDeleteComment }) {
+  console.log('Comments:', comments); // Log all comments
   return (
     <div className='comments-container'>
       <h1>Comments</h1>
@@ -9,7 +10,7 @@ export default function Comments({ comments, user, onDeleteComment }) {
           <li key={comment._id}>
             <div className='comment-flex'>
               <div>
-                <p>{(user && user._id === comment.createdBy._id) ? comment.createdBy.name : 'Stranger'} said:</p>
+                <p>{comment.createdBy.name} said:</p>
                 <p>{comment.text}</p>
               </div>
               <div>
@@ -24,5 +25,7 @@ export default function Comments({ comments, user, onDeleteComment }) {
     </div>
   );
 }
+
+
 
 

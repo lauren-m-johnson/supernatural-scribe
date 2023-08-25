@@ -15,15 +15,15 @@ export default function Encounters({ user }) {
   const fetchEncounterData = async () => {
     try {
       const encountersData = await encountersService.fetchEncounters();
-  
-      // Fetch comments for each encounter
+      console.log('Fetched Encounters Data:', encountersData); // Log the fetched encounters data
       const encountersWithComments = await Promise.all(
         encountersData.map(async (encounter) => {
-          const comments = await commentsApi.fetchCommentsForEncounter(encounter._id); // Fix the variable name here
+          const comments = await commentsApi.fetchCommentsForEncounter(encounter._id); 
           return { ...encounter, comments };
         })
       );
   
+      console.log('Encounters with Comments:', encountersWithComments); // Log the encounters with comments data
       setEncounters(encountersWithComments);
     } catch (error) {
       console.error('Error fetching encounters:', error);
@@ -80,6 +80,7 @@ export default function Encounters({ user }) {
         createdBy: user._id,
         encounter: encounter._id,
       });
+      console.log('New Comment:', newComment); //test
       setEncounters(prevEncounters => 
         prevEncounters.map(e =>
           e._id === encounter._id ? { ...e, comments: [...e.comments, newComment] } : e

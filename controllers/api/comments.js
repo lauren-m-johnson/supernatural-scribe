@@ -8,6 +8,7 @@ async function createComment(req, res) {
       encounter: req.body.encounter,
     });
     await comment.save();
+    console.log('Saved Comment:', comment); // Log the saved comment data
     res.status(201).json(comment);
   } catch (error) {
     res.status(400).json({ error: 'Failed to create comment' });
@@ -25,7 +26,10 @@ async function getComment(req, res) {
 
 async function getCommentsForEncounter(req, res) {
   try {
-    const comments = await Comment.find({ encounter: req.params.encounterId }).populate('createdBy');
+    const comments = await Comment.find({ encounter: req.params.encounterId }).populate({
+      path: 'createdBy',
+      select: 'name', // Select the fields you want to populate (e.g., 'name', 'email', etc.)
+    });
     res.status(200).json(comments);
   } catch (error) {
     res.status(400).json({ error: 'Failed to fetch comments' });
@@ -35,19 +39,16 @@ async function getCommentsForEncounter(req, res) {
 async function deleteComment(req, res) {
   try {
     const { commentId } = req.params;
-    // Find the comment by ID
     const comment = await Comment.findById(commentId);
 
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
 
-    // Check if the user trying to delete is the author of the comment
     if (comment.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Unauthorized' });
     }
 
-    // Delete the comment
     await comment.remove();
 
     res.json({ message: 'Comment deleted successfully' });
