@@ -8,7 +8,6 @@ async function createComment(req, res) {
       encounter: req.body.encounter,
     });
     await comment.save();
-    console.log('Saved Comment:', comment); // Log the saved comment data
     res.status(201).json(comment);
   } catch (error) {
     res.status(400).json({ error: 'Failed to create comment' });
@@ -28,7 +27,7 @@ async function getCommentsForEncounter(req, res) {
   try {
     const comments = await Comment.find({ encounter: req.params.encounterId }).populate({
       path: 'createdBy',
-      select: 'name', // Select the fields you want to populate (e.g., 'name', 'email', etc.)
+      select: 'name',
     });
     res.status(200).json(comments);
   } catch (error) {

@@ -17,7 +17,7 @@ export default function NavBar({ user, setUser, setShowAuthPage }) {
     <nav>
       {user ? (
         <>
-          <span>Welcome, {user.name}</span>
+          <span>Hello, {user.name}</span>
           <br />
           &nbsp;&nbsp;<Link to="" onClick={handleLogOut}>Log Out</Link>
         </>
