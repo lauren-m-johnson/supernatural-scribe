@@ -7,8 +7,15 @@ async function createComment(req, res) {
       createdBy: req.body.createdBy,
       encounter: req.body.encounter,
     });
+
     await comment.save();
-    res.status(201).json(comment);
+    
+    const populatedComment = await Comment.findById(comment._id).populate({
+      path: 'createdBy',
+      select: 'name',
+    });
+
+    res.status(201).json(populatedComment);
   } catch (error) {
     res.status(400).json({ error: 'Failed to create comment' });
   }
