@@ -35,6 +35,18 @@ Other:
 
 ### Preview:
 
+View encounters and comments direct on the landing page without needing to create an account:
+![Landing Page](public/images/landing.png)
+
+Sign up or Log in:
+![Sign Up](public/images/signup.png)
+
+Create an Encounter:
+![Create Encounter](public/images/encounter.png)
+
+Comment on Encounters:
+![Comment](public/images/comment.png)
+
 ## 🔍 Code Preview
 
 ## 🧊 Next Steps and Icebox Items:
