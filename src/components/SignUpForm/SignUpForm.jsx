@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { signUp } from '../../utilities/users-service';
 import './SignUpForm.css';
 
+// Functional component for the sign-up form
 export default function SignUpForm({ setUser }) {
+  // State to manage form data and error message
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +13,9 @@ export default function SignUpForm({ setUser }) {
     error: ''
   });
 
+  // Function to handle input changes
   const handleChange = (evt) => {
+    // Update the formData state with the changed field value and clear error
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
@@ -19,14 +23,21 @@ export default function SignUpForm({ setUser }) {
     });
   };
 
+  // Function to handle form submission
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+
     try {
+      // Extract relevant fields from formData
       const { name, email, password } = formData;
+      // Create an object with the user's registration data
       const formDataToSend = { name, email, password };
+      // Call the signUp function with the registration data
       const user = await signUp(formDataToSend);
+      // Call the provided setUser function with the newly registered user
       setUser(user);
     } catch {
+      // Set an error message if sign-up fails
       setFormData({
         ...formData,
         error: 'Sign Up Failed - Try Again'
@@ -34,8 +45,10 @@ export default function SignUpForm({ setUser }) {
     }
   };
 
+  // Determine if the "SIGN UP" button should be disabled
   const disable = formData.password !== formData.confirm;
 
+  // Render the sign-up form
   return (
     <div>
       <div className="signup-form-container">
@@ -77,6 +90,7 @@ export default function SignUpForm({ setUser }) {
           </button>
         </form>
       </div>
+      {/* Display error message if there's an error */}
       <p className="error-message">&nbsp;{formData.error}</p>
     </div>
   );

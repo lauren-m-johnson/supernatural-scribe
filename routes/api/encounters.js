@@ -1,11 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const encountersCtrl = require('../../controllers/api/encounters');
-const isLoggedIn = require('../../config/ensureLoggedIn');
+const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-router.post('/', encountersCtrl.create);
+// POST route to create a new encounter
+router.post('/', ensureLoggedIn, encountersCtrl.create);
+
+// GET route to retrieve a list of all encounters
 router.get('/', encountersCtrl.list);
-router.put('/:id', isLoggedIn, encountersCtrl.edit);
-router.delete('/:id', isLoggedIn, encountersCtrl.remove);
+
+// PUT route to update an encounter by its ID
+router.put('/:id', ensureLoggedIn, encountersCtrl.edit);
+
+// DELETE route to delete an encounter by its ID
+router.delete('/:id', ensureLoggedIn, encountersCtrl.remove);
 
 module.exports = router;
