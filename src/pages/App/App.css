@@ -7,7 +7,7 @@ body {
     align-items: stretch;
     justify-content: flex-start;
     background-color: rgb(63, 63, 63);
-    color: whitesmoke;
+    color: rgb(245, 245, 245);
     font-family: 'Inconsolata', monospace;
 }
 
@@ -25,6 +25,12 @@ header {
 aside {
     grid-area: aside;
     box-shadow: 1px 1px 10px rgb(0, 0, 0); 
+}
+
+aside p {
+    border: solid rgb(245, 245, 245) 1px;
+    padding: 5px;
+    margin: 5px;
 }
 
 main {

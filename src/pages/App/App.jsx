@@ -25,6 +25,11 @@ export default function App() {
         <NavBar user={user} setUser={setUser} setShowAuthPage={setShowAuthPage} />
         {/* Conditionally render AuthPage if user is not authenticated and showAuthPage is true */}
         {user ? null : showAuthPage && <AuthPage setUser={setUser} />}
+        <p>You've found the ultimate online forum where enthusiasts of the unknown gather to share their most captivating and
+          hair-raising experiences with the supernatural. Delve into a myriad of chilling encounters, from ghostly whispers
+          to alien abductions, as a vibrant community of believers and skeptics alike engage in discussions that blur the lines 
+          between reality and the paranormal. Join the conversation and immerse yourself in multimedia-enriched tales, 
+          and become part of a unique platform that celebrates the eerie, the unexplained, and the extraordinary.</p>
       </aside>
       {/* Main content area with encounters */}
       <main>
