@@ -1,8 +1,5 @@
 # 👻 Supernatural-Scribe 📜
 
-## 💫 Getting Started:
-✨[Live Link](https://supernatural-scribe-775c8db69f47.herokuapp.com/)✨
-
 ---
 
 ## 📔 Desription:
@@ -48,6 +45,41 @@ Comment on Encounters:
 ![Comment](public/images/comment.png)
 
 ## 🔍 Code Preview
+
+Main Mongoose Model "Encounter":
+```js
+const mongoose = require('mongoose');
+
+const encounterSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  location: { type: String, required: true },
+  description: { type: String, required: true },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  }],
+});
+
+const Encounter = mongoose.model('Encounter', encounterSchema);
+
+module.exports = Encounter;
+```
+
+Favorite Express Controller Method:
+
+
+
+## 💫 Getting Started:
+Live Link:
+✨[Live Link](https://supernatural-scribe-775c8db69f47.herokuapp.com/)✨
+
+Trello:
+[Trello](https://trello.com/b/mfAVT0Zt/project-4)
 
 ## 🧊 Next Steps and Icebox Items:
 
