@@ -1,7 +1,5 @@
 # 👻 Supernatural-Scribe 📜
 
----
-
 ## 💫 Getting Started:
 ✨[Live Link](https://supernatural-scribe-775c8db69f47.herokuapp.com/)✨
 
@@ -15,8 +13,6 @@ Welcome to "Supernatural Scribe," the ultimate online forum where enthusiasts of
 - Bone chilly tales.
 - Endless entertainment.
 - Find your community.
-
-### Preview:
 
 ## 👩🏽‍💻 Technologies Used:
 
@@ -36,6 +32,8 @@ Other:
 ![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+
+### Preview:
 
 ## 🔍 Code Preview
 
