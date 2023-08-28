@@ -71,8 +71,89 @@ module.exports = Encounter;
 ```
 
 Favorite Express Controller Method:
+```js
+// Create a new comment
+async function createComment(req, res) {
+  try {
+    // Create a new Comment instance with data from the request body
+    const comment = new Comment({
+      text: req.body.text,
+      createdBy: req.body.createdBy,
+      encounter: req.body.encounter,
+    });
 
+    // Save the comment to the database
+    await comment.save();
+    
+    // Populate the createdBy field with user's name and respond with the populated comment
+    const populatedComment = await Comment.findById(comment._id).populate({
+      path: 'createdBy',
+      select: 'name',
+    });
 
+    // Respond with the populated comment
+    res.status(201).json(populatedComment);
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create comment' });
+  }
+}
+```
+
+Favorite Component:
+
+```jsx
+// Functional component to display comments for an encounter
+export default function Comments({ comments, user, onDeleteComment }) {
+    // State to manage whether comments are shown or hidden
+    const [showComments, setShowComments] = useState(false);
+
+    // Function to toggle the display of comments
+    const toggleComments = () => {
+        setShowComments(!showComments);
+    };
+
+    // Render the comments section
+    return (
+        <div className='comments-container'>
+            <h2>Comments</h2>
+            {/* Button to toggle the display of comments */}
+            <button onClick={toggleComments}>
+                {showComments ? 'HIDE' : 'Display Comments'}
+            </button>
+            {/* Show comments if the showComments state is true */}
+            {showComments && (
+                <ul>
+                    {/* Map through the comments array and render each comment */}
+                    {comments.map(comment => {
+                        return (
+                            <li key={comment._id}>
+                                <div className='comment-flex'>
+                                    <div>
+                                        {/* Display the comment author's name or "Stranger" */}
+                                        <p>
+                                            <span className='title'>
+                                                {comment.createdBy ? comment.createdBy.name : 'Stranger'}
+                                            </span> said: 
+                                        </p>
+                                        {/* Display the comment text */}
+                                        <p>{comment.text}</p>
+                                    </div>
+                                    <div>
+                                        {/* Show delete button for the comment's author */}
+                                        {user && user._id === comment.createdBy._id && (
+                                            <button id="delete-btn" onClick={() => onDeleteComment(comment._id)}>x</button>
+                                        )}
+                                    </div>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
+        </div>
+    );
+}
+```
 
 ## 💫 Getting Started:
 Live Link:
